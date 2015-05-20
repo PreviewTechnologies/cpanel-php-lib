@@ -1,0 +1,16 @@
+{
+  "name": "previewict/cpanel-php-lib",
+  "description": "cPanel PHP Library for managing WHM & cPanel from any PHP application. Easy to use. Install with Composer and start using it.",
+  "keywords": ["cpanel","whm","php", "library", "hosting"],
+  "homepage": "https://github.com/previewict/cpanel-php-lib",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4.0",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-0": {
+      "CpanelPhp\\": ""
+    }
+  }
+}

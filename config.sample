@@ -1,0 +1,5 @@
+<?php
+define('WHMURL', 'https://xxxxxxxx.xxx');
+define('WHMPORT', 'xxx');
+define('WHMUSERNAME','xxx');
+define('WHMPASSWORD','xxxx');
