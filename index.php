@@ -3,6 +3,6 @@ require "vendor/autoload.php";
 require "config.php";
 
 $request = new \CpanelPhp\Cpanel\Request(WHMURL, WHMPORT);
-$response = $request->build('listpkgs');
-var_dump($response);
+$response = $request->build('listpkgs')->data;
+print_r($response);
 die();

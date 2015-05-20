@@ -59,7 +59,7 @@ class Request
         curl_close($curl);
         $this->response = $result;
 
-        return $this;
+        return new Response($this->response);
     }
 
     public function buildUrl($url, $port, $path, $options = array())
