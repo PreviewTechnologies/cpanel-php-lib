@@ -40,7 +40,7 @@ class Request
         }
     }
 
-    public function build($path, $options = array())
+    public function build($command, $options = array())
     {
         $curl = curl_init();                                // Create Curl Object
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);       // Allow self-signed certs
@@ -49,7 +49,7 @@ class Request
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);       // Return contents of transfer on curl_exec
         $header[0] = "Authorization: Basic " . base64_encode($this->username . ":" . $this->password) . "\n\r";
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);    // set the username and password
-        $queryUrl = $this->buildUrl($this->url, $this->port, $path);
+        $queryUrl = $this->buildUrl($this->url, $this->port, $command);
         curl_setopt($curl, CURLOPT_URL, $queryUrl);            // execute the query
         $result = curl_exec($curl);
         if ($result == false) {
@@ -62,11 +62,11 @@ class Request
         return new Response($this->response);
     }
 
-    public function buildUrl($url, $port, $path, $options = array())
+    public function buildUrl($url, $port, $command, $options = array())
     {
         $optionsDefault = ['type' => 'json-api', 'params' => ['api.version' => 1]];
         $options = array_merge($optionsDefault, $options);
-        $query = $url . ":" . $port . "/" . $options['type'] . "/" . $path . "?" . http_build_query($options['params'],
+        $query = $url . ":" . $port . "/" . $options['type'] . "/" . $command . "?" . http_build_query($options['params'],
                 '', '&amp;');;
         $this->query = $query;
 
