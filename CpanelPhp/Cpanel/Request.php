@@ -82,7 +82,7 @@ class Request
         }
 
         $query = $url . ":" . $port . "/" . $requestType . "/" . $command . "?" . http_build_query($urlParams,
-                '', '&amp;');;
+                '', '&');;
         $this->query = $query;
 
         return $query;
