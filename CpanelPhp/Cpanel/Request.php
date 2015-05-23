@@ -49,7 +49,7 @@ class Request
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);       // Return contents of transfer on curl_exec
         $header[0] = "Authorization: Basic " . base64_encode($this->username . ":" . $this->password) . "\n\r";
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);    // set the username and password
-        $queryUrl = $this->buildUrl($this->url, $this->port, $command);
+        $queryUrl = $this->buildUrl($this->url, $this->port, $command, $options);
         curl_setopt($curl, CURLOPT_URL, $queryUrl);            // execute the query
         $result = curl_exec($curl);
         if ($result == false) {
@@ -64,9 +64,24 @@ class Request
 
     public function buildUrl($url, $port, $command, $options = array())
     {
-        $optionsDefault = ['type' => 'json-api', 'params' => ['api.version' => 1]];
-        $options = array_merge($optionsDefault, $options);
-        $query = $url . ":" . $port . "/" . $options['type'] . "/" . $command . "?" . http_build_query($options['params'],
+        $requestType = 'json-api';
+        $apiVersion = 1;
+
+        $urlParams = array('api.version' => 1);
+
+        if(in_array('type', array_keys($options))){
+            $requestType = $options['type'];
+        }
+
+        if(in_array('api.version', array_keys($options))){
+            $apiVersion = $options['api.version'];
+        }
+
+        if(in_array('params', array_keys($options))){
+            $urlParams = array_merge($options['params'], array('api.version' => $apiVersion));
+        }
+
+        $query = $url . ":" . $port . "/" . $requestType . "/" . $command . "?" . http_build_query($urlParams,
                 '', '&amp;');;
         $this->query = $query;
 
