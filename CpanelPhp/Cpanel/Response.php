@@ -14,7 +14,11 @@ class Response
     {
         $this->response = $response;
         $responseArray = $this->toArray();
-        $this->data = $responseArray['data'];
+
+        if(in_array('data', array_keys($responseArray))){
+            $this->data = $responseArray['data'];
+        }
+
         $this->metadata = $responseArray['metadata'];
     }
 
